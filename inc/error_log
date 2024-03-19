@@ -1,0 +1,18 @@
+[25-Nov-2022 06:23:24 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php:4
+Stack trace:
+#0 /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php(4): PDO->__construct('mysql:host=loca...', 'msksurve_mskcom...', 'KjNGd]@DFGHBVCV...')
+#1 /home/msksurveyinterna/public_html/msk_admin/inc/checklogins.php(4): require_once('/home/msksurvey...')
+#2 {main}
+  thrown in /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php on line 4
+[25-Nov-2022 06:23:27 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php:4
+Stack trace:
+#0 /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php(4): PDO->__construct('mysql:host=loca...', 'msksurve_mskcom...', 'KjNGd]@DFGHBVCV...')
+#1 /home/msksurveyinterna/public_html/msk_admin/inc/checklogins.php(4): require_once('/home/msksurvey...')
+#2 {main}
+  thrown in /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php on line 4
+[25-Nov-2022 06:23:34 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection refused' in /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php:4
+Stack trace:
+#0 /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php(4): PDO->__construct('mysql:host=loca...', 'msksurve_mskcom...', 'KjNGd]@DFGHBVCV...')
+#1 /home/msksurveyinterna/public_html/msk_admin/inc/checklogins.php(4): require_once('/home/msksurvey...')
+#2 {main}
+  thrown in /home/msksurveyinterna/public_html/msk_admin/inc/dbConnect.php on line 4
