@@ -29,7 +29,7 @@ if($_POST['action']=="Add")
 /************************************* UPDATE ********************************************/
 if($_POST['action']=="Update")
 {
-	$select_language=$pdo_conn->prepare("SELECT * FROM language WHERE language_name LIKE '".$_POST['language_name']."'   and delete_status='0'");
+	$select_language=$pdo_conn->prepare("SELECT * FROM language WHERE language_name LIKE '".$_POST['language_name']."'   and delete_status='0' and language_id!='".$_POST['language_id']."'");
     $select_language->execute();
     $language = $select_language->fetchAll();
 	if(count($language)==0)

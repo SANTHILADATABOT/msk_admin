@@ -3,9 +3,10 @@
 require_once('../inc/dbConnect.php');
 
 /************************************* INSERT ********************************************/
-
+//print_r($_POST);
 if($_POST['action']=="Add")
 { 
+    
     $select_qualification=$pdo_conn->prepare("SELECT * FROM qualification WHERE qualification_name LIKE '".$_POST['qualification_name']."'  and delete_status='0'");
     $select_qualification->execute();
     $qualification = $select_qualification->fetchAll();
@@ -29,7 +30,7 @@ if($_POST['action']=="Add")
 /************************************* UPDATE ********************************************/
 if($_POST['action']=="Update")
 {
-	$select_qualification=$pdo_conn->prepare("SELECT * FROM qualification WHERE qualification_name LIKE '".$_POST['qualification_name']."'   and delete_status='0'");
+	$select_qualification=$pdo_conn->prepare("SELECT * FROM qualification WHERE qualification_name LIKE '".$_POST['qualification_name']."'   and delete_status='0' and qualification_id != '".$_POST['qualification_id']."'");
     $select_qualification->execute();
     $qualification = $select_qualification->fetchAll();
 	if(count($qualification)==0)

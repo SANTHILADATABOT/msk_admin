@@ -31,7 +31,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>language Name</th>
+							<th>Language Name</th>
 							<th>Description</th>
 							
                             <th>Action</th>

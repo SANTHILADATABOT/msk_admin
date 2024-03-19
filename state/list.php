@@ -1,7 +1,7 @@
     
-	<!---<script language="javascript" type="text/javascript" src="state/state.js"></script>
+	<script language="javascript" type="text/javascript" src="state/state.js"></script>
 	
-	<section class="content-header">
+	<!--<section class="content-header">
 	  <h1>
         <small>Manage</small>
 		<?php echo ucfirst($foldername); ?><a href="index.php?file=state/create" class="float-right btn-sm btn-primary">Add New</a>

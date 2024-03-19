@@ -117,6 +117,8 @@
 							  <div class="form-group">
 								   <h5>area Name </h5>
 								   <div class="controls">
+								        <input type="hidden"  name="area_id" id="area_id" />
+										<input type="hidden"  name="action" id="action" />
 										<input type="text" class="form-control" name="area_name" id="area_name" onkeyup="validation(this.id)" required>
 									</div>
 							  </div>
@@ -138,9 +140,9 @@
 						<div class="col-md-12 go-btn"><br><br>
 							<center><a href="index.php?file=district/list" class="hvr-sweep-to-top">Cancel</a>
 							<?php if($updateresult==''){?>
-							<a class="hvr-sweep-to-top" onclick="area_cu('','Add')">Save</a>
+							<a class="hvr-sweep-to-top" onclick="area_cu()">Save</a>
 							<?php }else{?>
-							<a class="hvr-sweep-to-top" onclick="area_cu('<?php echo $updateresult[0]['area_id']?>','Update')">Update</a>
+							<a class="hvr-sweep-to-top" onclick="area_cu()">Update</a>
 							<?php }?></center>
 						</div>
 
@@ -165,7 +167,8 @@
 
 <script>
 
-
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("area_id").value ="<?php echo $updateresult[0]['area_id'];?>";
 
 document.getElementById("country_id").value ="<?php echo $updateresult[0]['country_id'];?>";
 
@@ -179,4 +182,10 @@ document.getElementById("status").value ="<?php echo $updateresult[0]['status'];
 
 
 </script>
-<?php }?>
+<?php }
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php } ?>

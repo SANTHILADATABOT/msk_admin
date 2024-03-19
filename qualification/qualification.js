@@ -1,7 +1,16 @@
 /****************************** INSERT & UPDATE ***************************************/
-function qualification_cu(qualification_id,action)
-{ 
-	format=$("form").serialize()+"&qualification_id="+qualification_id+"&action="+action;
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		qualification_cu();
+		
+   }
+});
+
+function qualification_cu()
+{   
+	event.preventDefault();
+	format=$("form").serialize();
 	var qualification_name=$("#qualification_name").val();
 	if(qualification_name)
 	{
@@ -18,10 +27,21 @@ function qualification_cu(qualification_id,action)
 					return false;
 				}
 				else
-				{
-					alert(msg);
-					window.location.href="index.php?file=qualification/list";
-				}
+					{
+						alert(msg);
+						if(msg=='Successfully Created '){
+							window.location.href="index.php?file=qualification/list";
+							
+						}
+						else if(msg=='Successfully Updated '){
+							//alert("kguuy");
+							window.location.href="index.php?file=qualification/list";
+							
+						}
+						else{
+						return false
+						}
+					}
 		
 			}
 		});

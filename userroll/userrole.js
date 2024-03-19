@@ -1,27 +1,41 @@
 /****************************** INSERT & UPDATE ***************************************/
-function userrole_cu(userroll_id,action)
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		userrole_cu();
+		
+   }
+});
+
+function userrole_cu()
 {
-	
-	    overall_variable=$("form").serialize();
-		  array_variable01=overall_variable.split("&");
-		  for(i=0;i<array_variable01.length;i++)
-		  {
-			array_variable02=array_variable01[i];
-			array_variable02=array_variable02.split("=");
-			if(!array_variable02[1])
-			{
-				  $("button").prop("type", "submit");
-				  return false;
-			 }
+	event.preventDefault();
+	    //overall_variable=$("form").serialize();
+		//  array_variable01=overall_variable.split("&");
+		//  for(i=0;i<array_variable01.length;i++)
+		//  {
+		//	array_variable02=array_variable01[i];
+		//	array_variable02=array_variable02.split("=");
+		//	if(!array_variable02[1])
+		//	{
+		//		  $("button").prop("type", "submit");
+		//		  return false;
+		//	 }
 			   
 			   
-		  }
-		 $("button").prop("type", "button");
+		 // }
+		 //$("button").prop("type", "button");
 		 
 	    //jQuery("#userrole_list").html('<img src="img/ajax-loaders/ajax-loader-5.gif"> Loading...');
 		
-		
-		format=$("form").serialize()+"&userroll_id="+userroll_id+"&action="+action;
+	    roll_name = $("#roll_name").val();
+		if(roll_name==""){
+			alert("Enter Usrr Roll Name");
+			return false;
+		}
+
+	
+		format=$("form").serialize();
 		
 		jQuery.ajax({
 			type: "POST",
@@ -38,7 +52,18 @@ function userrole_cu(userroll_id,action)
 					else
 					{
 						alert(msg);
-						window.location.href="index.php?file=userroll/list";
+						if(msg=='Successfully Created'){
+							window.location.href="index.php?file=userroll/list";
+							
+						}
+						else if(msg=='Successfully Updated'){
+							//alert("kguuy");
+							window.location.href="index.php?file=userroll/list";
+							
+						}
+						else{
+						return false
+						}
 					}
 			
 			}});

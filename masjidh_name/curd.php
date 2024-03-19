@@ -9,18 +9,20 @@ if($_POST['action']=="Add")
 	$select_masjidh=$pdo_conn->prepare("SELECT COUNT(masjidh_id) FROM masjidh_name WHERE masjidh_name LIKE '".$_POST['masjidh_name']."' ");
     $select_masjidh->execute();
     $masjidh = $select_masjidh->fetchAll();
-
+    //echo "asfsdf";
 	if($masjidh[0]['COUNT(masjidh_id)']==0)
 	{
 		$sql = "INSERT INTO masjidh_name(masjidh_name,description,status) VALUES (:masjidh_name,:description,:status)";
 		$pdo_statement = $pdo_conn->prepare($sql);
 			
 		$result = $pdo_statement->execute(array(':masjidh_name'=>$_POST['masjidh_name'],':description'=>$_POST['description'],':status'=>$_POST['status']));
+		 //echo $result;
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
+	//echo $result;
 	if (!empty($result) )
 	{
 	  echo $msg = "Successfully Created";
@@ -41,7 +43,7 @@ if($_POST['action']=="Update")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	if(!empty($result)) {
 		echo $msg = "Successfully Updated";

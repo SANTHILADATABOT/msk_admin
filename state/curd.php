@@ -6,21 +6,30 @@ require_once('../inc/dbConnect.php');
 
 if($_POST['action']=="Add")
 { 
+    
+	//print_r($_POST);
+	
     $select_state=$pdo_conn->prepare("SELECT * FROM state WHERE state_name LIKE '".$_POST['state_name']."' AND status LIKE '".$_POST['status']."' and country_id='".$_POST['country_id']."' ");
     $select_state->execute();
     $state = $select_state->fetchAll();
 	if(count($state) ==0)
 	{
+		//echo "MSK";
+		
 		$sql = "INSERT INTO state (country_id,state_name,status) VALUES (:country_id,:state_name,:status)";
 		$pdo_statement = $pdo_conn->prepare($sql);
 			
-		$result = $pdo_statement->execute(array(':country_id'=>$_POST['country_id'],':state_name'=>$_POST['state_name'],':status'=>$_POST['status']));
+		  $result = $pdo_statement->execute(array(':country_id'=>$_POST['country_id'],':state_name'=>$_POST['state_name'],':status'=>$_POST['status']));
+		
+		//echo $msg = "Successfully Created";
+		//exit;
 	}
 	else
 	{
 		echo "Already Exit";
 	}
 	if (!empty($result) ){
+		
 	  echo $msg = "Successfully Created";
 	}
 	//else { print_r($pdo_statement->errorinfo()); }

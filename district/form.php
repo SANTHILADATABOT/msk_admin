@@ -69,6 +69,8 @@
 								  <div class="form-group">
 									   <h5>District Name </h5>
 									   <div class="controls">
+									        <input type="hidden"  name="district_id" id="district_id" />
+											<input type="hidden"  name="action" id="action" />
 											<input type="text" class="form-control" name="district_name" id="district_name"  onkeyup="validation(this.id)" required>
 										</div>
 								  </div>
@@ -90,18 +92,11 @@
 							<div class="col-md-12 go-btn"><br><br>
 								<center><a href="index.php?file=district/list" class="hvr-sweep-to-top">Cancel</a>
 								<?php if($updateresult==''){?>
-								<a class="hvr-sweep-to-top" onclick="district_cu('','Add')">Save</a>
+								<a class="hvr-sweep-to-top" onclick="district_cu()">Save</a>
 								<?php }else{?>
-								<a class="hvr-sweep-to-top" onclick="district_cu('<?php echo $updateresult[0]['district_id']?>','Update')">Update</a>
+								<a class="hvr-sweep-to-top" onclick="district_cu()">Update</a>
 								<?php }?></center>
 							</div>
-         
-         
-         
-
-         
-
-         
 
 						</div>
 					</form>
@@ -115,11 +110,18 @@
 	<?php if($updateresult!=''){?>
 
 <script>
-
-	document.getElementById("country_id").value ="<?php echo $updateresult[0]['country_id'];?>";
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("district_id").value ="<?php echo $updateresult[0]['district_id'];?>";
+document.getElementById("country_id").value ="<?php echo $updateresult[0]['country_id'];?>";
 document.getElementById("state_id").value ="<?php echo $updateresult[0]['state_id'];?>";
 document.getElementById("district_name").value ="<?php echo $updateresult[0]['district_name'];?>";
 document.getElementById("status").value ="<?php echo $updateresult[0]['status'];?>";
 
 </script>
-<?php }?>
+<?php }
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php } ?>

@@ -1,7 +1,18 @@
 /****************************** INSERT & UPDATE ***************************************/
-function district_cu(district_id,action)
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		district_cu();
+		
+   }
+});
+
+
+
+function district_cu()
 {
-	format=$("form").serialize()+"&district_id="+district_id+"&action="+action;
+	event.preventDefault();
+	format=$("form").serialize();
 	var country_id= $("#country_id").val();
 	var state_id= $("#state_id").val();
  var district_name=$("#district_name").val();
@@ -20,15 +31,28 @@ if((country_id)&&(state_id)&&(district_name)){
 		}
 		else
 		{
+			
 			alert(msg);
-			window.location.href="index.php?file=district/list";
+			if(msg=='Successfully Created'){
+				window.location.href="index.php?file=district/list";
+							
+			}
+			else if(msg=='Successfully Updated'){
+							//alert("kguuy");
+				window.location.href="index.php?file=district/list";
+							
+			}
+			else{
+				return false
+			}
+		    
 		}
 
 	}});
 }
 else
 {
-	validation(country_id,state_id,district_name)
+	validation(country_id,state_id,district_name);
 
 }
 	

@@ -1,7 +1,16 @@
 /****************************** INSERT & UPDATE ***************************************/
-function city_cu(city_id,action)
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		city_cu();
+		
+   }
+});
+
+function city_cu()
 { 
-	format=$("form").serialize()+"&city_id="+city_id+"&action="+action;
+   event.preventDefault();
+	format=$("form").serialize();
 	//alert(format);
 	var country_id= $("#country_id").val();
 	var state_id= $("#state_id").val();
@@ -22,7 +31,18 @@ if((country_id)&&(state_id)&&(district_id)&&(city_name)){
 		else
 		{
 			alert(msg);
-			window.location.href="index.php?file=city/list";
+			if(msg=='Successfully Created'){
+				window.location.href="index.php?file=city/list";
+							
+			}
+			else if(msg=='Successfully Updated'){
+							//alert("kguuy");
+				window.location.href="index.php?file=city/list";
+							
+			}
+			else{
+				return false
+			}
 		}
 		}
 	});	
@@ -35,7 +55,7 @@ else
 }
 
 
-function del(city_id)
+function city_del(city_id)
 {
 	value=confirm("Are Sure You Want Delete?");
 	if(value){

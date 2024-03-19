@@ -112,7 +112,7 @@ if($_GET['id_number']=="")
 					<select name="id_number" id="id_number" required class="form-control select2 item_name" >
 						<option value="">Select ID Number</option>
 							<?php 
-							$prepare = $pdo_conn->prepare("SELECT * FROM matrimonial_information WHERE status='1'");
+							$prepare = $pdo_conn->prepare("SELECT distinct id_number FROM matrimonial_information WHERE status='1' order by id_number asc");
 							$prepare->execute();
 							$country_list = $prepare->fetchall();
 							foreach($country_list as $value) { ?>

@@ -190,7 +190,7 @@ else if($wanted=='MSK')
 }
 else if($wanted=='maqtab_child')
 {
-	$query='   and ffs.maqtab_interest like "%Yes%" and ffs.age BETWEEN 4 and 15';
+	$query='   and ffs.child_interest like "%Yes%" and ffs.age BETWEEN 4 and 15';
 }
 else if($wanted=='maqtab_adult')
 {
@@ -202,7 +202,7 @@ else if($wanted=='allin_hifz_course')
 }
 else if($wanted=='higher_edu_guide')
 {
-	$query='   and (higher_edu_guide RLIKE "([a-z]+)" or fin_support_for_edu RLIKE "([a-z]+)")';
+	$query='   and (higher_edu_guide RLIKE "([a-z]+)" or fin_support_for_edu RLIKE "([a-z]+)" or pre_matric_scholarship RLIKE "([a-z]+)" or post_matric_scholarship RLIKE "([a-z]+)" )';
 }
 else if($wanted=='small_scale')
 {
@@ -317,7 +317,7 @@ if($wanted=='maqtab_child' || $wanted=='maqtab_adult' || $wanted=='allin_hifz_co
         foreach($get_val as  $val_get)
         {
              if($i==$get_count) {$val_con="";  } else {$val_con=","; }
-
+            //echo "SELECT * From fact_finding_subform  where id='".$val_get."'";
              $findrelationship = $pdo_conn->prepare("SELECT * From fact_finding_subform  where id='".$val_get."'");
                     $findrelationship->execute();
                     
@@ -451,13 +451,15 @@ $i++;
     		<select name="state_id" id="state_id" required class="form-control select2 item_name" onchange="get_district_list(country_id.value,state_id.value)">
 						<option value="">Select State</option>
 							<?php 
-							$state = $pdo_conn->prepare("SELECT * FROM state WHERE delete_status!='1' and status='1' ");
+							if($country_id!=''){
+							$state = $pdo_conn->prepare("SELECT * FROM state WHERE delete_status!='1' and status='1' and country_id='$country_id'");
 							$state->execute();
 							$state_list = $state->fetchall();
 							foreach($state_list as $value) { 
 							?>
 								<option value="<?php echo $value['state_id']?>"<?php if($value['state_id']==$state_id){echo "selected";}?>><?php echo $value['state_name']?></option>
-							<?php } ?>
+							<?php }
+							} ?>
 					</select>
     	</div>
 
@@ -465,14 +467,16 @@ $i++;
     		<h5 class="list-content">District</h5>
     		<select name="district_id" id="district_id" required class="form-control select2 item_name" onchange="get_city_list(country_id.value,state_id.value,district_id.value)">
 						<option value="">Select District</option>
-							<?php 
-							$district = $pdo_conn->prepare("SELECT * FROM district WHERE delete_status!='1' and status='1' ");
+							<?php
+							if($state_id!=''){
+							$district = $pdo_conn->prepare("SELECT * FROM district WHERE delete_status!='1' and status='1' and state_id='$state_id'");
 							$district->execute();
 							$district_list = $district->fetchall();
 							foreach($district_list as $value) { 
 							?>
 								<option value="<?php echo $value['district_id']?>" <?php if($value['district_id']==$district_id){echo "selected";}?>><?php echo $value['district_name']?></option>
-							<?php } ?>
+							<?php }
+							} ?>
 					</select>
     	</div>
 
@@ -480,14 +484,16 @@ $i++;
     		<h5 class="list-content">City</h5>
     		<select name="city_id" id="city_id" required class="form-control select2 item_name" onchange="get_area_list(country_id.value,state_id.value,district_id.value,city_id.value)">
 				<option value="">Select City</option>
-					<?php 
-					$city = $pdo_conn->prepare("SELECT * FROM city WHERE delete_status!='1' and status='1' ");
+					<?php
+					if($district_id!=''){
+					$city = $pdo_conn->prepare("SELECT * FROM city WHERE delete_status!='1' and status='1' and district_id='$district_id'");
 					$city->execute();
 					$city_list = $city->fetchall();
 					foreach($city_list as $value) { 
 					?>
 						<option value="<?php echo $value['city_id']?>" <?php if($value['city_id']==$city_id){echo "selected";}?>><?php echo $value['city_name']?></option>
-					<?php } ?>
+					<?php }
+					} ?>
 			</select>
     	</div><!--
 <div class="modal fade" id="quotation_view">
@@ -513,14 +519,16 @@ $i++;
     		<h5 class="list-content">Area</h5>
     		<select name="area_id" id="area_id" required class="form-control select2 item_name"  >
 				<option value="">Select Area</option>
-					<?php 
-					$area = $pdo_conn->prepare("SELECT * FROM area WHERE delete_status!='1' and status='1' ");
+					<?php
+					if($city_id!=''){
+					$area = $pdo_conn->prepare("SELECT * FROM area WHERE delete_status!='1' and status='1' and city_id='$city_id'");
 					$area->execute();
 					$area_list = $area->fetchall();
 					foreach($area_list as $value) { 
 					?>
 						<option value="<?php echo $value['area_id']?>" <?php if($value['area_id']==$area_id){echo "selected";}?>><?php echo $value['area_name']?></option>
-					<?php } ?>
+					<?php }
+					} ?>
 			</select>
     	</div>
 
@@ -565,11 +573,20 @@ $i++;
                                 	<tr>
 									<th>#</th>
 									<th>Family No</th>
-									<th>Disease Details</th>
-									<th>Surgery Details</th>
+									<?php 
+									if($wanted=="Medical"){
+									?>
 									<th>Name(Surgery)</th>
-									<th>Mon Exp on Medicine</th>
+									<th>Surgery Details</th>
+									
+									<?php } 
+									else if($wanted=="medicine"){
+									?> 
 									<th>Name(Mon Exp)</th>
+									<th>Disease Details</th>
+									<th>Mon Exp on Medicine</th>
+									
+									<?php } ?>
 									<th>Country Name</th>
 									<th>State Name</th>
 									<th>District Name</th>
@@ -602,11 +619,33 @@ if(($wanted!="Medical")&&($wanted!="medicine"))
 	
 								foreach($survey_list as $value)
 							 	{ 
-							 	    $namees = '';
+							 	    
 									if($wanted=='MSK')
 									{
-										$name=$value['interest_to_serve_msk_no'];
+										
+										    if($value['interest_to_serve_msk_no']!="")	{	
+											    $name=$value['interest_to_serve_msk_no'];
+												
+											}											
+											else{
+												$survey2_sub_det=$pdo_conn->prepare("SELECT * From fact_finding_subform  where random_no='".$value['unique_no']."'  ");
+												$survey2_sub_det->execute();
+												$fet_sub_det=$survey2_sub_det->fetch();
+											    $name=$fet_sub_det['family_head_name'];
+											}
+											
+												
+										
 									}
+									else if(($wanted=='Own')||($wanted=='Rent')||($wanted=='Bathroom')||($wanted=='gov_help')||($wanted=='Economic'))
+									{
+											$survey2_sub_det=$pdo_conn->prepare("SELECT * From fact_finding_subform  where random_no='".$value['unique_no']."'  ");
+											$survey2_sub_det->execute();
+											$fet_sub_det=$survey2_sub_det->fetch();
+											$name=$fet_sub_det['family_head_name'];
+									}
+									
+									
 									else if($wanted=='Job')
 									{
 										$name=$value['guide_for_emp'];
@@ -614,19 +653,20 @@ if(($wanted!="Medical")&&($wanted!="medicine"))
 									else if($wanted=='Medical'||$wanted=='medicine')
 									{
 										$name=$value['disease_no'];
+										
 									}
 									else if($wanted=='Marriage')
 									{
 										$name=$value['marriage_help'];
 									}
-									else if($wanted=='Own' || $wanted=='Rent')
-									{
-										$name=$value['information_provided_by'];
-									}
-									else if($wanted=='Economic')
-									{
-										$name=$value['information_provided_by'];
-									}
+									//else if($wanted=='Own' || $wanted=='Rent')
+									//{
+									//	$name=$value['information_provided_by'];
+									//}
+									//else if($wanted=='Economic')
+									//{
+									//	$name=$value['information_provided_by'];
+									//}
 									else if($wanted=='Disability')
 									{
 										$name=$value['information_provided_by'];
@@ -645,19 +685,28 @@ if(($wanted!="Medical")&&($wanted!="medicine"))
 									}
 									else if($wanted=='higher_edu_guide')
 									{
-								if(trim($value['higher_edu_guide'])==$value['fin_support_for_edu']){
-								    $name=trim($value['higher_edu_guide']);
-								}else if((trim($value['higher_edu_guide'])!='') && $value['fin_support_for_edu']==''){
-								    $name=trim($value['higher_edu_guide']);
-								}else if((trim($value['higher_edu_guide'])=='') && $value['fin_support_for_edu']!=''){
-								    $name=trim($value['fin_support_for_edu']);
-								}else{
-								    $name=trim($value['higher_edu_guide']).','.trim($value['fin_support_for_edu']);
-								}
+									    $name="";
+										if(trim($value['higher_edu_guide'])!=''){
+											$name=trim($value['higher_edu_guide']);
+										}
+										if(trim($value['fin_support_for_edu'])!=''){
+											$name.=','.trim($value['fin_support_for_edu']);
+										}
+										if(trim($value['pre_matric_scholarship'])!=''){
+											$name.=','.trim($value['pre_matric_scholarship']);
+										}
+										if(trim($value['post_matric_scholarship'])!=''){
+											$name.=','.trim($value['post_matric_scholarship']);
+										}
+										$name =ltrim($name,",");
+										
+								   
 								// $namee = explode(',',$names);
 									}
 									else if($wanted=='small_scale')
 									{
+										
+										$namees="";
 									    $names = trim($value['business_counselling']).', '.trim($value['entrepreneur_counselling']).', '.trim($value['guide_for_skill_develop']);
 									    $nam = explode(', ', $names);
 									    
@@ -774,7 +823,7 @@ else if ($user_type=='6') {
                                 }
                                 
                                 if($wanted=='Medical'){
-							 	$res_medical = $pdo_conn->prepare("SELECT DISTINCT a.country_id,a.district_id,a.state_id,a.city_id,a.area_id,a.survey_id,a.unique_no,a.family_no,b.disease_details,b.surgery_details,b.surgery_details_no,b.mon_exp_on_medicine,b.mon_exp_on_medicine_no,a.contact_no FROM  fact_family_disease b left join fact_finding_form a ON a.unique_no=b.unique_no  WHERE  b.delete_status!='1' and a.user_id!='0' and a.delete_status!='1' $area_queryy $user_type_area_query ORDER BY a.survey_id DESC");
+							 	$res_medical = $pdo_conn->prepare("SELECT DISTINCT a.country_id,a.district_id,a.state_id,a.city_id,a.area_id,a.survey_id,a.unique_no,a.family_no,b.disease_details,b.surgery_details,b.surgery_details_no,b.mon_exp_on_medicine,b.mon_exp_on_medicine_no,a.contact_no FROM  fact_family_disease b left join fact_finding_form a ON a.unique_no=b.unique_no  WHERE  b.delete_status!='1' and a.user_id!='0' and a.delete_status!='1' and b.surgery_details_no !='' $area_queryy $user_type_area_query ORDER BY a.survey_id DESC");
                                 }else if($wanted=='medicine'){
                                     $res_medical = $pdo_conn->prepare("SELECT DISTINCT a.country_id,a.district_id,a.state_id,a.city_id,a.area_id,a.survey_id,a.unique_no,a.family_no,b.disease_details,b.surgery_details,b.surgery_details_no,b.mon_exp_on_medicine,b.mon_exp_on_medicine_no,a.contact_no FROM  fact_family_disease b left join fact_finding_form a ON a.unique_no=b.unique_no WHERE  b.delete_status!='1' and a.user_id!='0' and a.delete_status!='1' AND b.disease_details!='' and b.mon_exp_on_medicine!='' $area_queryy $user_type_area_query ORDER BY a.survey_id DESC");
                                 }
@@ -794,11 +843,22 @@ else if ($user_type=='6') {
 							    <tr>
 									<td align="center"><?php echo $roll_id;?></td>
 									 <td align="center" class="style2 right">&nbsp;<?php echo $get_value['family_no'];?></td>
-									<td align="center"><?php echo $get_value['disease_details']?></td>
-									<td align="center"><?php echo $get_value['surgery_details']; ?></td>
+									
+									<?php 
+									if($wanted=="Medical"){
+									?>
 									<td align="center"><?php echo val_of_family_name($get_value['surgery_details_no']); ?></td>
-									<td align="center"><?php echo $get_value['mon_exp_on_medicine'];?>	</td>
+									<td align="center"><?php echo $get_value['surgery_details']; ?></td>
+									
+									<?php 
+									}
+									else if($wanted=="medicine"){
+									?>
 									<td align="center"><?php echo val_of_family_name($get_value['mon_exp_on_medicine_no']); ?></td>
+									<td align="center"><?php echo $get_value['disease_details']?></td>
+									<td align="center"><?php echo $get_value['mon_exp_on_medicine'];?>	</td>
+									
+									<?php } ?>
 									<td align="center"><?php echo get_country_name($get_value['country_id']);	?>	</td>
 									<td align="center"><?php echo get_state_name($get_value['state_id']); ?></td>
 									<td align="center"><?php echo get_district_name($get_value['district_id']); ?></td>

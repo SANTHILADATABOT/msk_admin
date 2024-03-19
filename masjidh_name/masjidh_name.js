@@ -1,34 +1,37 @@
 /****************************** INSERT & UPDATE ***************************************/
-function organization(masjidh_id,action)
-{
+$(document).on('keypress',function(e) {
 	
-	    overall_variable=$("form").serialize();
-		  array_variable01=overall_variable.split("&");
-		  for(i=0;i<array_variable01.length;i++)
-		  {
-			array_variable02=array_variable01[i];
-			array_variable02=array_variable02.split("=");
-			if(!array_variable02[1])
-			{
-				  $("button").prop("type", "submit");
-				  return false;
-			 }
-			   
-			   
-		  }
-		 $("button").prop("type", "button");
+    if(e.which == 13) {
+        //alert("1st");
+		organization();
+		
+    }
+});
+
+function organization()
+{
+	event.preventDefault();
+	   
+		 
+		 masjidh_name = $("#masjidh_name").val();
+		//alert(masjidh_name);
+		if(masjidh_name==""){
+			alert("Enter Masjid Name");
+			return false;
+		}
+		 
 		 
 	    //jQuery("#userrole_list").html('<img src="img/ajax-loaders/ajax-loader-5.gif"> Loading...');
+		//alert("VFDEFRFDDE123");
 		
-		
-		format=$("form").serialize()+"&masjidh_id="+masjidh_id+"&action="+action;
+		format=$("form").serialize();
 		
 		jQuery.ajax({
 			type: "POST",
 			url: "masjidh_name/curd.php",
 			data: format,
 			success: function(msg){ 
-			
+			         //alert(msg);
 			         if(msg=='error')
 					{
 						
@@ -38,7 +41,18 @@ function organization(masjidh_id,action)
 					else
 					{
 						alert(msg);
+						if(msg=='Successfully Created'){
 						window.location.href="index.php?file=masjidh_name/list";
+							
+						}
+						else if(msg=='Successfully Updated'){
+							//alert("kguuy");
+							window.location.href="index.php?file=masjidh_name/list";
+							
+						}
+						else{
+						return false
+						}
 					}
 			
 			}});

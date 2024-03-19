@@ -6,7 +6,9 @@ require_once('../inc/dbConnect.php');
 
 if($_POST['action']=="Add")
 { 
-    $select_area=$pdo_conn->prepare("SELECT * FROM area WHERE state_id='".$_POST['state_id']."' country_id='".$_POST['country_id']."' AND district_id = '".$_POST['district_id']."' and city_id='".$_POST['city_id']."' AND area_name LIKE '".$_POST['area_name']."' ");
+     
+    
+    $select_area=$pdo_conn->prepare("SELECT * FROM area WHERE state_id='".$_POST['state_id']."' and country_id='".$_POST['country_id']."' AND district_id = '".$_POST['district_id']."' and city_id='".$_POST['city_id']."' AND area_name LIKE '".$_POST['area_name']."' ");
     $select_area->execute();
     $area = $select_area->fetchAll();
 	if(count($area)==0)
@@ -18,7 +20,7 @@ if($_POST['action']=="Add")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	
 	if (!empty($result) ){
@@ -39,7 +41,7 @@ if($_POST['action']=="Update")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	if(!empty($result)) {
 		echo $msg = "Successfully Updated";

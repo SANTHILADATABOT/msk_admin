@@ -1,8 +1,17 @@
 /****************************** INSERT & UPDATE ***************************************/
-function area_cu(area_id,action)
-{ 
-	format=$("form").serialize()+"&area_id="+area_id+"&action="+action;
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		area_cu();
+		
+   }
+});
 
+function area_cu()
+{ 
+	event.preventDefault();
+	format=$("form").serialize();
+   // alert(format);
 	var country_id= $("#country_id").val();
 	var state_id= $("#state_id").val();
  var district_id=$("#district_id").val();
@@ -16,6 +25,7 @@ if((country_id)&&(state_id)&&(district_id)&&(city_id)&&(area_name)){
 		url: "area/curd.php",
 		data: format,
 		success: function(msg){ 
+		
         if(msg=='error')
 		{			
 			$("#distinct_error").text("Invalid Data");
@@ -24,7 +34,18 @@ if((country_id)&&(state_id)&&(district_id)&&(city_id)&&(area_name)){
 		else
 		{
 			alert(msg);
-			window.location.href="index.php?file=area/list";
+			if(msg=='Successfully Created'){
+				window.location.href="index.php?file=area/list";
+							
+			}
+			else if(msg=='Successfully Updated'){
+							//alert("kguuy");
+				window.location.href="index.php?file=area/list";
+							
+			}
+			else{
+				return false
+			}
 		}
 		}
 	});	

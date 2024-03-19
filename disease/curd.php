@@ -29,7 +29,7 @@ if($_POST['action']=="Add")
 /************************************* UPDATE ********************************************/
 if($_POST['action']=="Update")
 {
-	$select_disease=$pdo_conn->prepare("SELECT * FROM disease WHERE disease_name LIKE '".$_POST['disease_name']."'   and delete_status='0'");
+	$select_disease=$pdo_conn->prepare("SELECT * FROM disease WHERE disease_name LIKE '".$_POST['disease_name']."'   and delete_status='0' and disease_id != '".$_POST['disease_id']."'");
     $select_disease->execute();
     $disease = $select_disease->fetchAll();
 	if(count($disease)==0)

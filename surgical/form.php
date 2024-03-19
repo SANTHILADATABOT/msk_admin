@@ -13,6 +13,8 @@
 					<div class="form-group">
 					<h5>Surgical Name  </h5>
 					<div class="controls">
+					<input type="hidden"  name="surgical_id" id="surgical_id" />
+					<input type="hidden"  name="action" id="action" />
 					<input type="text" name="surgical_name" id="surgical_name" onkeyup="validation(this.id)" class="form-control" required>
 					
 					</div>
@@ -41,9 +43,9 @@
 				<div class="col-md-12 go-btn"><br><br>
 				<center><a href="index.php?file=surgical/list" class="hvr-sweep-to-top">Cancel</a>
 				<?php if($updateresult==''){?>
-				<a class="hvr-sweep-to-top" onclick="surgical('','Add')">Save</a>
+				<a class="hvr-sweep-to-top" onclick="surgical()">Save</a>
 				<?php }else{?>
-				<a class="hvr-sweep-to-top" onclick="surgical('<?php echo $updateresult[0]['surgical_id'];?>','Update')">Update</a>
+				<a class="hvr-sweep-to-top" onclick="surgical()">Update</a>
 				<?php }?></center>
 				</div>
 			</form>
@@ -56,11 +58,22 @@
 </section>
 <?php if($updateresult!=''){?>
 <script>
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("surgical_id").value ="<?php echo $updateresult[0]['surgical_id'];?>";
+
 document.getElementById("surgical_name").value ="<?php echo $updateresult[0]['surgical_name'];?>";
 document.getElementById("description").value ="<?php echo $updateresult[0]['description'];?>";
 document.getElementById("status").value ="<?php echo $updateresult[0]['status'];?>";
 </script>
-<?php } ?>
+<?php } 
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php
+}
+?>
 <style>
 textarea#description {
     border: 1px solid #020065;

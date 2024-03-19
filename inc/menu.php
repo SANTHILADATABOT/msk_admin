@@ -62,7 +62,13 @@
            </div>
           </a> 
         </li>
-
+        <li> 
+         <a href="index.php?file=volunteer/list"> 
+           <div class="menu-info">
+             <h4 class="control-sidebar-subheading"><i class="fa fa-chevron-circle-right set-icons"></i>Volunteer</h4>
+           </div>
+          </a> 
+        </li>
         <li> 
          <a href="index.php?file=userrights/list"> 
            <div class="menu-info">

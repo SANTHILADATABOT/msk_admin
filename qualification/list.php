@@ -32,7 +32,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>qualification Name</th>
+							<th>Qualification Name</th>
 							<th>Description</th>
 							
                             <th>Action</th>

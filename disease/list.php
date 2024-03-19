@@ -31,7 +31,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>disease Name</th>
+							<th>Disease Name</th>
 							<th>Description</th>
 							
                             <th>Action</th>

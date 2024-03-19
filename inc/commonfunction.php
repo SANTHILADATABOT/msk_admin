@@ -1,3 +1,4 @@
+<meta charset="UTF-8" />
 <?php
 include("dbConnect.php");
 $current_acc_year='';
@@ -111,6 +112,15 @@ $qualification_list = $qualification->fetchall();
 $registration = $pdo_conn->prepare("SELECT * FROM registration WHERE delete_status!='1'");
 $registration->execute();
 $registration_list = $registration->fetchall();
+
+function get_user_name($user_id)
+{
+	global $pdo_conn;
+	$country = $pdo_conn->prepare("SELECT username FROM usercreation where user_id='".$user_id."'");
+	$country->execute();
+	$country_list = $country->fetch();
+	return $country_list['username'];
+}
 
 function get_user_type($userroll_id)
 {

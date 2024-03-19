@@ -9,6 +9,7 @@ $area_id=$_POST['area_id'];
 $city_id=$_POST['city_id'];
 $state_id=$_POST['state_id'];
 $district_id=$_POST['district_id'];
+$user_type_query=$_POST['user_type_query'];
 
 $query='';
 
@@ -423,7 +424,7 @@ if($area_id!='')
             	<i class="fa fa-plus-square new-dash"></i></span>
 	            <div class="info-box-content">
             	<?php 
-            	$food_needed = $pdo_conn->prepare("SELECT * FROM food_needed WHERE food_needed_id!='' $query  ORDER BY food_needed_id DESC");
+            	$food_needed = $pdo_conn->prepare("SELECT * FROM food_needed WHERE food_needed_id!='' $query $user_type_query ORDER BY food_needed_id DESC");
 					$food_needed->execute();
 					$food_needed_count = $food_needed->fetchall();
 				  ?>
@@ -447,7 +448,7 @@ if($area_id!='')
             	<i class="fa fa-id-card new-dash"></i></span>
 	            <div class="info-box-content">
             	<?php 
-            	$medical_help = $pdo_conn->prepare("SELECT * FROM medical_help WHERE medical_help_id!='' $query  ORDER BY medical_help_id DESC");
+            	$medical_help = $pdo_conn->prepare("SELECT * FROM medical_help WHERE medical_help_id!='' $query $user_type_query ORDER BY medical_help_id DESC");
 					$medical_help->execute();
 					$medical_help_count = $medical_help->fetchall();
 				  ?>
@@ -471,7 +472,7 @@ if($area_id!='')
             	<i class="fa fa-close new-dash"></i></span>
 	            <div class="info-box-content">
             	<?php 
-            	 $job_application= $pdo_conn->prepare("SELECT * FROM job_application WHERE job_id!='' $query ORDER BY job_id DESC");
+            	 $job_application= $pdo_conn->prepare("SELECT * FROM job_application WHERE job_id!='' $query $user_type_query ORDER BY job_id DESC");
 						$job_application->execute();
 						$job_application_count = $job_application->fetchAll(); 
 				  ?>
@@ -495,7 +496,7 @@ if($area_id!='')
             	<i class="fa fa-thumbs-up new-dash"></i></span>
 	            <div class="info-box-content">
             	<?php 
-            	$matrimonial_information = $pdo_conn->prepare("SELECT * FROM matrimonial_information WHERE matrimonial_id!='' $query ORDER BY matrimonial_id DESC");
+            	$matrimonial_information = $pdo_conn->prepare("SELECT * FROM matrimonial_information WHERE matrimonial_id!='' $query $user_type_query ORDER BY matrimonial_id DESC");
 						$matrimonial_information->execute();
 						$matrimonial_count = $matrimonial_information->fetchAll();
 				  ?>
@@ -519,7 +520,7 @@ if($area_id!='')
             	<i class="fa fa-graduation-cap new-dash"></i></span>
 	            <div class="info-box-content">
             	<?php 
-            	$join_masjith = $pdo_conn->prepare("SELECT * FROM join_masjith WHERE join_id!='' $query ORDER BY join_id DESC");
+            	$join_masjith = $pdo_conn->prepare("SELECT * FROM join_masjith WHERE join_id!='' $query $user_type_query ORDER BY join_id DESC");
 					$join_masjith->execute();
 					$join_masjith_count = $join_masjith->fetchAll();
 				  ?>
@@ -543,7 +544,7 @@ if($area_id!='')
             	<i class="fa fa-graduation-cap new-dash"></i></span>
 	            <div class="info-box-content">
             	<?php 
-            	$admission_card = $pdo_conn->prepare("SELECT * FROM admission_card WHERE admission_card_id!='' $query ORDER BY admission_card_id DESC");
+            	$admission_card = $pdo_conn->prepare("SELECT * FROM admission_card WHERE admission_card_id!='' $query $user_type_query ORDER BY admission_card_id DESC");
 					$admission_card->execute();
 					$admission_card_count = $admission_card->fetchAll();
 				  ?>

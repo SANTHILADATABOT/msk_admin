@@ -28,6 +28,8 @@
 									  <div class="form-group">
 										   <h5>Relationship Name </h5>
 										   <div class="controls">
+										        <input type="hidden"  name="relationship_id" id="relationship_id" />
+												<input type="hidden"  name="action" id="action" />
 												<input type="text"  name="relationship_name" id="relationship_name"  class="form-control" onchange="validation(this.id)"  required>
 											</div>
 									  </div>
@@ -46,9 +48,9 @@
 								<div class="col-md-12 go-btn"><br><br>
 									<center><a href="index.php?file=relationship/list" class="hvr-sweep-to-top">Cancel</a>
 									<?php if($updateresult==''){?>
-									<a class="hvr-sweep-to-top" onclick="relationship_cu('','Add')">Save</a>
+									<a class="hvr-sweep-to-top" onclick="relationship_cu()">Save</a>
 									<?php }else{?>
-									<a class="hvr-sweep-to-top" onclick="relationship_cu('<?php echo $updateresult[0]['relationship_id']?>','Update')">Update</a>
+									<a class="hvr-sweep-to-top" onclick="relationship_cu()">Update</a>
 									<?php }?>
 									</center>
 								</div>
@@ -66,12 +68,21 @@
 		
 		</section>
     
-<?php if($updateresult!=''){?>
+<?php if($updateresult!=''){ ?>
 <script>
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("relationship_id").value ="<?php echo $updateresult[0]['relationship_id'];?>";
+
 document.getElementById("relationship_name").value ="<?php echo $updateresult[0]['relationship_name'];?>";
 document.getElementById("description").value ="<?php echo $updateresult[0]['description'];?>";
 </script>
-<?php }?>
+<?php }
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php } ?>
 <style>
 textarea#description {
     border: 1px solid #020065;

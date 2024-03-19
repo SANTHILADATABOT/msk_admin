@@ -31,6 +31,8 @@ textarea#description {
 									  <div class="form-group">
 										   <h5>Language Name </h5>
 										   <div class="controls">
+												<input type="hidden"  name="language_id" id="language_id" />
+												<input type="hidden"  name="action" id="action" />
 												<input type="text"  name="language_name" id="language_name"  class="form-control" onchange="validation(this.id)"  required>
 											</div>
 									  </div>
@@ -49,9 +51,9 @@ textarea#description {
 								<div class="col-md-12 go-btn"><br><br>
 									<center><a href="index.php?file=language/list" class="hvr-sweep-to-top">Cancel</a>
 									<?php if($updateresult==''){?>
-									<a class="hvr-sweep-to-top" onclick="language_cu('','Add')">Save</a>
+									<a class="hvr-sweep-to-top" onclick="language_cu()">Save</a>
 									<?php }else{?>
-									<a class="hvr-sweep-to-top" onclick="language_cu('<?php echo $updateresult[0]['language_id']?>','Update')">Update</a>
+									<a class="hvr-sweep-to-top" onclick="language_cu()">Update</a>
 									<?php }?></center>
 								</div>
          
@@ -70,7 +72,16 @@ textarea#description {
     
 <?php if($updateresult!=''){?>
 <script>
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("language_id").value ="<?php echo $updateresult[0]['language_id'];?>";
+
 document.getElementById("language_name").value ="<?php echo $updateresult[0]['language_name'];?>";
 document.getElementById("description").value ="<?php echo $updateresult[0]['description'];?>";
 </script>
-<?php }?>
+<?php }
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php } ?>

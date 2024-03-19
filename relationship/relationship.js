@@ -1,7 +1,16 @@
 /****************************** INSERT & UPDATE ***************************************/
-function relationship_cu(relationship_id,action)
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		relationship_cu();
+		
+   }
+});
+
+function relationship_cu()
 { 
-	format=$("form").serialize()+"&relationship_id="+relationship_id+"&action="+action;
+	event.preventDefault();
+	format=$("form").serialize();
 	var relationship_name=$("#relationship_name").val();
 	if(relationship_name)
 	{
@@ -20,7 +29,19 @@ function relationship_cu(relationship_id,action)
 				else
 				{
 					alert(msg);
-					window.location.href="index.php?file=relationship/list";
+					if(msg=='Successfully Created '){
+						window.location.href="index.php?file=relationship/list";
+							
+						}
+					else if(msg=='Successfully Updated '){
+							//alert("kguuy");
+							window.location.href="index.php?file=relationship/list";
+							
+						}
+					else{
+						return false
+					}
+					
 				}
 		
 			}

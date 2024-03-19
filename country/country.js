@@ -1,16 +1,32 @@
 /****************************** INSERT & UPDATE ***************************************/
-function country_cu(country_id,action)
-{
-        
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+       // alert();
+		country_cu();
 		
-		format=$("form").serialize()+"&country_id="+country_id+"&action="+action;
+    }
+});
+
+
+
+function country_cu()
+{
+        event.preventDefault();
+		//alert($("form").serialize());
+		format=$("form").serialize();
+		country_name = $("#country_name").val();
+		//alert(country_name);
+		if(country_name==""){
+			alert("Enter Country Name");
+			return false;
+		}
 		
 		jQuery.ajax({
 			type: "POST",
 			url: "country/curd.php",
 			data: format,
 			success: function(msg){ 
-			
+			     //alert(msg);
 			     if(msg=='error')
 					{
 						
@@ -20,7 +36,18 @@ function country_cu(country_id,action)
 					else
 					{
 						alert(msg);
+						if(msg=='Successfully Created '){
 						window.location.href="index.php?file=country/list";
+							
+						}
+						else if(msg=='Successfully Updated '){
+							//alert("kguuy");
+							window.location.href="index.php?file=country/list";
+							
+						}
+						else{
+						return false
+						}
 					}
 			
 			}});

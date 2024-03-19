@@ -44,8 +44,18 @@ $sk=0;
 		</tr>
 </table>
 <hr>	
+<?php
+if($record['family_no']==''){
+    ?>
+<table width="100%">
+    <tr><td style="text-align:center;"><h3><b>No Records found.</b></h3></td></td>
+    </tr>
+</table>
+    <?php
+    exit;
+}
+?>
 <table>
-
 
 <tr>
 <td>

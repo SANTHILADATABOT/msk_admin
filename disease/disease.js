@@ -1,7 +1,16 @@
 /****************************** INSERT & UPDATE ***************************************/
-function disease_cu(disease_id,action)
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		disease_cu();
+		
+   }
+});
+
+function disease_cu()
 { 
-	format=$("form").serialize()+"&disease_id="+disease_id+"&action="+action;
+	event.preventDefault();
+	format=$("form").serialize();
 	var disease_name=$("#disease_name").val();
 	if(disease_name)
 	{
@@ -18,11 +27,21 @@ function disease_cu(disease_id,action)
 					return false;
 				}
 				else
-				{
-					alert(msg);
-					window.location.href="index.php?file=disease/list";
-				}
-		
+					{
+						alert(msg);
+						if(msg=='Successfully Created '){
+							window.location.href="index.php?file=disease/list";
+							
+						}
+						else if(msg=='Successfully Updated '){
+							//alert("kguuy");
+							window.location.href="index.php?file=disease/list";
+							
+						}
+						else{
+						return false
+						}
+					}
 			}
 		});
 	}

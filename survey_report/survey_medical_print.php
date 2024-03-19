@@ -1,3 +1,17 @@
+<?php
+$wanted_data=$_REQUEST['wanted_data'];
+	if($wanted_data=='Medical'){
+	    
+			$title = "2. Medical (Surgery)";
+			
+	}else if($wanted_data=='medicine'){
+	
+	$title =  "3. Medicine Tablet (Monthly Expenses)";
+	
+	}
+	?>
+
+<title><?php echo $title; ?></title>
 
 <style type="text/css">
 .style1 {font-weight:normal;font-family:calibri;font-size: 14px;}
@@ -77,15 +91,17 @@ $user_type  =   $_SESSION['user_roll'];
 	?>
         </tr>
         <?php include('quran.php'); ?>
+		</table>
+		<table>
         <tr>
-            <td></td>
-            <td><b>Country : </b><?php echo get_country_name($country_id);?></td>
-            <td><b>State : </b><?php echo get_state_name($state_id);?></td>
-            <td><b>District : </b><?php echo get_district_name($district_id);?></td>
+            
+            <td width="300px"><b>Country : </b><?php echo get_country_name($country_id);?></td>
+            <td width="300px"><b>State : </b><?php echo get_state_name($state_id);?></td>
+            <td width="300px"><b>District : </b><?php echo get_district_name($district_id);?></td>
         </tr>
         
         <tr>
-            <td></td>
+            
             <td><b>City : </b><?php echo get_city_name($city_id)?></td>
             <td><b>Area : </b><?php echo get_area_name($area_id);?></td>
         </tr>
@@ -100,17 +116,20 @@ $user_type  =   $_SESSION['user_roll'];
             <?php
             if($wanted_data=='Medical'){
             ?>
-			 <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Disease Details</strong></td>
+			 <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Name(Surgery)</strong></td>
             <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Surgery Disease Details</strong></td>
-             <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Name(Surgery)</strong></td>
-			<td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Mon Exp On Medicine</strong></td>
-			<td width="14%" align="center" class="style10 style4 right bottom"><strong>&nbsp;Name(Mon Exp)</strong></td>
+             
+			
 			<?php
             }else if($wanted_data=='medicine'){
             ?>
-            <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Name</strong></td>
+			<td width="14%" align="center" class="style10 style4 right bottom"><strong>&nbsp;Name(Mon Exp)</strong></td>
+			<td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Disease Details</strong></td>
+			<td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Mon Exp On Medicine</strong></td>
+			
+             <!--<td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Name</strong></td>
             <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Disease</strong></td>
-             <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Amount</strong></td>
+            <td width="14%" align="center" class="style10 style4 right"><strong>&nbsp;Mon Exp On Medicine</strong></td>-->
              <?php
             }
             ?>
@@ -177,7 +196,7 @@ else if ($user_type=='6') {
 
 
 if($wanted_data=='Medical'){
-$survey_sub_medical = $pdo_conn->prepare("SELECT DISTINCT a.country_id,a.district_id,a.state_id,a.city_id,a.area_id,a.survey_id,a.unique_no,a.family_no,b.disease_details,b.surgery_details,b.surgery_details_no,b.mon_exp_on_medicine,b.mon_exp_on_medicine_no,a.contact_no FROM  fact_family_disease b left join fact_finding_form a ON a.unique_no=b.unique_no WHERE  b.delete_status!='1' and a.user_id!='0' and a.delete_status!='1' $area_query $user_type_area_query ORDER BY a.survey_id DESC");
+$survey_sub_medical = $pdo_conn->prepare("SELECT DISTINCT a.country_id,a.district_id,a.state_id,a.city_id,a.area_id,a.survey_id,a.unique_no,a.family_no,b.disease_details,b.surgery_details,b.surgery_details_no,b.mon_exp_on_medicine,b.mon_exp_on_medicine_no,a.contact_no FROM  fact_family_disease b left join fact_finding_form a ON a.unique_no=b.unique_no WHERE  b.delete_status!='1' and a.user_id!='0' and a.delete_status!='1' and b.surgery_details_no !=''  $area_query $user_type_area_query ORDER BY a.survey_id DESC");
 }else if($wanted_data=='medicine'){
     $survey_sub_medical = $pdo_conn->prepare("SELECT DISTINCT a.country_id,a.district_id,a.state_id,a.city_id,a.area_id,a.survey_id,a.unique_no,a.family_no,b.disease_details,b.surgery_details,b.surgery_details_no,b.mon_exp_on_medicine,b.mon_exp_on_medicine_no,a.contact_no FROM  fact_family_disease b left join fact_finding_form a ON a.unique_no=b.unique_no WHERE  b.delete_status!='1' and a.user_id!='0' and a.delete_status!='1' AND b.disease_details!='' and b.mon_exp_on_medicine!='' $area_query $user_type_area_query ORDER BY a.survey_id DESC");
 }						
@@ -204,17 +223,20 @@ $survey_sub_medical = $pdo_conn->prepare("SELECT DISTINCT a.country_id,a.distric
 <?php
 if($wanted_data=='Medical'){
 ?>
-					<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1['disease_details']; ?></td>
-						<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1[surgery_details]; ?></td>
-						<td align="center" class="style2 right bottom">&nbsp;<?php echo val_of_family_name($record1[surgery_details_no]); ?></td>
-						<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1[mon_exp_on_medicine]; ?></td>
-							<td align="center" class="style2 right bottom ">&nbsp;<?php echo val_of_family_name($record1[mon_exp_on_medicine_no]); ?></td>
+					<td align="center" class="style2 right bottom">&nbsp;<?php echo val_of_family_name($record1[surgery_details_no]); ?></td>
+					<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1[surgery_details]; ?></td>
+						
+					<!--	<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1[mon_exp_on_medicine]; ?></td>
+							<td align="center" class="style2 right bottom ">&nbsp;<?php echo val_of_family_name($record1[mon_exp_on_medicine_no]); ?></td>-->
 					<?php
 }else if($wanted_data=='medicine'){
 ?>
 <td align="center" class="style2 right bottom">&nbsp;<?php if($record1['mon_exp_on_medicine_no']=='Select' || $record1['mon_exp_on_medicine_no']==''){echo '-';}else { echo rtrim($name,', ');} ?></td>
-						<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1[disease_details]; ?></td>
-						<td align="center" class="style2 right bottom">&nbsp;<?php  echo ($record1[mon_exp_on_medicine]);  ?></td>
+<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1['disease_details']; ?></td>
+<td align="center" class="style2 right bottom">&nbsp;<?php  echo ($record1[mon_exp_on_medicine]);  ?></td>
+
+						<!--<td align="center" class="style2 right bottom">&nbsp;<?php echo $record1[disease_details]; ?></td>-->
+						
 <?php
 }
 ?>

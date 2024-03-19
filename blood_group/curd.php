@@ -16,10 +16,11 @@ if($_POST['action']=="Add")
 		$pdo_statement = $pdo_conn->prepare($sql);
 			
 		$result = $pdo_statement->execute(array(':blood_group_name'=>$_POST['blood_group_name'],':description'=>$_POST['description'],':status'=>$_POST['status']));
+	   
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	if (!empty($result) )
 	{
@@ -41,7 +42,7 @@ if($_POST['action']=="Update")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	if(!empty($result)) {
 		echo $msg = "Successfully Updated";

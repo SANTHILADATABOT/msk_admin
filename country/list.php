@@ -33,7 +33,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>country Name</th>
+							<th>Country Name</th>
 							<th>Status</th>
 							
                             <th>Action</th>

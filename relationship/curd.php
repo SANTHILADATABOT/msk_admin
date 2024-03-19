@@ -29,7 +29,7 @@ if($_POST['action']=="Add")
 /************************************* UPDATE ********************************************/
 if($_POST['action']=="Update")
 {
-	$select_relationship=$pdo_conn->prepare("SELECT * FROM relationship WHERE relationship_name LIKE '".$_POST['relationship_name']."'   and delete_status='0'");
+	$select_relationship=$pdo_conn->prepare("SELECT * FROM relationship WHERE relationship_name LIKE '".$_POST['relationship_name']."'   and delete_status='0' and relationship_id!='".$_POST['relationship_id']."'");
     $select_relationship->execute();
     $relationship = $select_relationship->fetchAll();
 	if(count($relationship)==0)

@@ -106,7 +106,7 @@ else if($wanted_data=='Medical')
 }
 else if($wanted_data=='maqtab_child')
 {
-	$query='  and ffs.maqtab_interest like "%Yes%" and ffs.age BETWEEN 4 and 15';
+	$query='  and ffs.child_interest like "%Yes%" and ffs.age BETWEEN 4 and 15';
 }
 else if($wanted_data=='maqtab_adult')
 {
@@ -118,7 +118,7 @@ else if($wanted_data=='allin_hifz_course')
 }
 else if($wanted_data=='higher_edu_guide')
 {
-	$query='   and (higher_edu_guide RLIKE "([a-z]+)" or fin_support_for_edu RLIKE "([a-z]+)")';
+	$query='   and (higher_edu_guide RLIKE "([a-z]+)" or fin_support_for_edu RLIKE "([a-z]+)" or pre_matric_scholarship RLIKE "([a-z]+)" or post_matric_scholarship RLIKE "([a-z]+)")';
 }
 else if($wanted_data=='small_scale')
 {
@@ -486,18 +486,20 @@ $i++;
         
             <?php include('quran.php'); ?>
        
-        
+        </table>
+		<table>
         <tr>
-            <td></td>
-            <td><b>Country : </b><?php echo get_country_name($country_id);?></td>
-            <td><b>State : </b><?php echo get_state_name($state_id);?></td>
-            <td><b>District : </b><?php echo get_district_name($district_id);?></td>
+            
+            <td width="300px"><b>Country : </b><?php echo get_country_name($country_id);?></td>
+            <td width="300px"><b>State : </b><?php echo get_state_name($state_id);?></td>
+            <td width="300px"><b>District : </b><?php echo get_district_name($district_id);?></td>
         </tr>
         
         <tr>
-            <td></td>
+            
             <td><b>City : </b><?php echo get_city_name($city_id)?></td>
             <td><b>Area : </b><?php echo get_area_name($area_id);?></td>
+			<td></td>
         </tr>
 
 
@@ -628,7 +630,16 @@ foreach ($survey_list as $record)
 	$guide_for_emp_str = explode (",", $record['guide_for_emp']); 
 	if($wanted_data=='MSK')
 	{
-	    $name=$record['interest_to_serve_msk_no'];
+	    if($record['interest_to_serve_msk_no']!="")	{	
+			$name=$record['interest_to_serve_msk_no'];
+												
+		}											
+		else{
+			$survey2_sub_det=$pdo_conn->prepare("SELECT * From fact_finding_subform  where random_no='".$record['unique_no']."'  ");
+			$survey2_sub_det->execute();
+			$fet_sub_det=$survey2_sub_det->fetch();
+			$name=$fet_sub_det['family_head_name'];
+		}
 	    $names = explode(',',$name);
 	    $count = count($names);
 	    $age='';
@@ -670,7 +681,7 @@ foreach ($survey_list as $record)
 							}
 	else if($wanted_data=='Marriage')
 	{
-	    $name=$record['marriage_help'];
+	    $name=$record['marriage_help'];		
 	    $names = explode(',',$name);
 	    $count = count($names);
 	    $age='';
@@ -700,7 +711,7 @@ else if(($wanted_data=='Own')||($wanted_data=='Rent')||($wanted_data=='Bathroom'
 	}
 	else if($wanted_data=='maqtab_child')
 	{
- $survey_sub = $pdo_conn->prepare("SELECT GROUP_CONCAT(concat(family_head_name, '/', gender, '/', age)) as names FROM fact_finding_subform WHERE random_no='$record[unique_no]' AND age BETWEEN 4 AND 15 AND maqtab_interest LIKE '%Yes%' ORDER BY id DESC");
+ $survey_sub = $pdo_conn->prepare("SELECT GROUP_CONCAT(concat(family_head_name, '/', gender, '/', age)) as names FROM fact_finding_subform WHERE random_no='$record[unique_no]' AND age BETWEEN 4 AND 15 AND child_interest LIKE '%Yes%' ORDER BY id DESC");
 	}
 	else if($wanted_data=='maqtab_adult')
 	{
@@ -791,15 +802,23 @@ $gov_helpp = '';
 	            }
 	            if($wanted_data=='higher_edu_guide'){
 	               // $name = $record1['family_head_name'];
-	               if(trim($record['higher_edu_guide'])==$record['fin_support_for_edu']){
-								    $name=trim($record['higher_edu_guide']);
-								}else if((trim($record['higher_edu_guide'])!='') && $record['fin_support_for_edu']==''){
-								    $name=trim($record['higher_edu_guide']);
-								}else if((trim($record['higher_edu_guide'])=='') && $record['fin_support_for_edu']!=''){
-								    $name=trim($record['fin_support_for_edu']);
-								}else{
-								    $name=trim($record['higher_edu_guide']).','.trim($record['fin_support_for_edu']);
-								}
+	               
+								$name="";
+										if(trim($record['higher_edu_guide'])!=''){
+											$name=trim($record['higher_edu_guide']);
+										}
+										if(trim($record['fin_support_for_edu'])!=''){
+											$name.=','.trim($record['fin_support_for_edu']);
+										}
+										if(trim($record['pre_matric_scholarship'])!=''){
+											$name.=','.trim($record['pre_matric_scholarship']);
+										}
+										if(trim($record['post_matric_scholarship'])!=''){
+											$name.=','.trim($record['post_matric_scholarship']);
+										}
+										$name =ltrim($name,",");
+								
+
 	               // $age = $record1['age'];
 	               $names = explode(',',$name);
 	    $age='';

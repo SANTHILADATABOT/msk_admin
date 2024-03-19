@@ -70,7 +70,7 @@ $sk=0;
 </tr>
 <tr>
 <td>
-<td><b>Date :</b></td><td> <?php echo $record['date'] ?></td>
+<td><b>Date :</b></td><td> <?php if($record['date']!=''){echo date('d-m-Y',strtotime($record['date']));}else{echo "-";} ?></td>
 <td><b>Contact No :</b></td><td> <?php echo $record['contact_no'] ?></td>
 <td><b>Mother Tongue :</b></td><td> <?php echo $record['mother_tongue'] ?><?php if($record['mother_tongue']=="Other / பிற மொழிகள்")  { echo "-".$record['language_input']; } ?></la</td>
 </td>

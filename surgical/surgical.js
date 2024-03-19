@@ -1,27 +1,44 @@
 /****************************** INSERT & UPDATE ***************************************/
-function surgical(surgical_id,action)
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		surgical();
+		
+   }
+});
+
+function surgical()
 {
-	
-	    overall_variable=$("form").serialize();
-		  array_variable01=overall_variable.split("&");
-		  for(i=0;i<array_variable01.length;i++)
-		  {
-			array_variable02=array_variable01[i];
-			array_variable02=array_variable02.split("=");
-			if(!array_variable02[1])
-			{
-				  $("button").prop("type", "submit");
-				  return false;
-			 }
+	event.preventDefault();
+	    //overall_variable=$("form").serialize();
+		//  array_variable01=overall_variable.split("&");
+		//  for(i=0;i<array_variable01.length;i++)
+		//  {
+		//	array_variable02=array_variable01[i];
+		//	array_variable02=array_variable02.split("=");
+		//	if(!array_variable02[1])
+		//	{
+		//		  $("button").prop("type", "submit");
+		//		  return false;
+		//	 }
 			   
 			   
-		  }
-		 $("button").prop("type", "button");
+		 // }
+		 //$("button").prop("type", "button");
+		 
+		 
 		 
 	    //jQuery("#userrole_list").html('<img src="img/ajax-loaders/ajax-loader-5.gif"> Loading...');
 		
+		//alert($("form").serialize());
+		surgical_name = $("#surgical_name").val();
+		if(surgical_name==""){
+			alert("Enter Surgical Name");
+			return false;
+		}
 		
-		format=$("form").serialize()+"&surgical_id="+surgical_id+"&action="+action;
+		
+		format=$("form").serialize();
 		
 		jQuery.ajax({
 			type: "POST",
@@ -38,7 +55,18 @@ function surgical(surgical_id,action)
 					else
 					{
 						alert(msg);
-						window.location.href="index.php?file=surgical/list";
+						if(msg=='Successfully Created'){
+							window.location.href="index.php?file=surgical/list";
+							
+						}
+						else if(msg=='Successfully Updated'){
+							//alert("kguuy");
+							window.location.href="index.php?file=surgical/list";
+							
+						}
+						else{
+						return false
+						}
 					}
 			
 			}});

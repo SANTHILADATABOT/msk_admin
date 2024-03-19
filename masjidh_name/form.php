@@ -13,6 +13,8 @@
 					<div class="form-group">
 					<h5>Masjidh Name  </h5>
 					<div class="controls">
+					<input type="hidden"  name="masjidh_id" id="masjidh_id" />
+					<input type="hidden"  name="action" id="action" />
 					<input type="text" name="masjidh_name" id="masjidh_name" onkeyup="validation(this.id)" class="form-control" required>
 					
 					</div>
@@ -41,9 +43,9 @@
 				<div class="col-md-12 go-btn"><br><br>
 				<center><a href="index.php?file=masjidh_name/list" class="hvr-sweep-to-top">Cancel</a>
 				<?php if($updateresult==''){?>
-				<a  class="hvr-sweep-to-top" onclick="organization('','Add')">Save</a>
+				<a  class="hvr-sweep-to-top" onclick="organization()">Save</a>
 				<?php }else{?> </a>
-				<a class="hvr-sweep-to-top" onclick="organization('<?php echo $updateresult[0]['masjidh_id'];?>','Update')">Update</a>
+				<a class="hvr-sweep-to-top" onclick="organization()">Update</a>
 				<?php }?>  </center>
 				</div>
 			</form>
@@ -56,12 +58,21 @@
 </section>
 <?php if($updateresult!=''){?>
 <script>
+	document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("masjidh_id").value ="<?php echo $updateresult[0]['masjidh_id'];?>";
 document.getElementById("masjidh_name").value ="<?php echo $updateresult[0]['masjidh_name'];?>";
 document.getElementById("description").value ="<?php echo $updateresult[0]['description'];?>";
 document.getElementById("status").value ="<?php echo $updateresult[0]['status'];?>";
 </script>
-<?php } ?>
-
+<?php } 
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php
+}
+?>
 <style>
 textarea#description {
     border: 1px solid #020065;

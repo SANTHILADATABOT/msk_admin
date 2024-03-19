@@ -19,7 +19,7 @@ if($_POST['action']=="Add")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	if (!empty($result) )
 	{
@@ -41,7 +41,7 @@ if($_POST['action']=="Update")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	if(!empty($result)) {
 		echo $msg = "Successfully Updated";

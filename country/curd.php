@@ -25,10 +25,10 @@ if($_POST['action']=="Add")
 	}
 	//else { print_r($pdo_countryment->errorinfo()); }
 }
-
 /************************************* UPDATE ********************************************/
 if($_POST['action']=="Update")
 {
+	
 	$select_country=$pdo_conn->prepare("SELECT * FROM country WHERE country_name LIKE '".$_POST['country_name']."' AND status LIKE '".$_POST['status']."' AND country_id!='".$_POST['country_id']."' and delete_status='0'");
     $select_country->execute();
     $country = $select_country->fetchAll();

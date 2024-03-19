@@ -13,6 +13,8 @@
 					<div class="form-group">
 					<h5>House Name  </h5>
 					<div class="controls">
+					<input type="hidden"  name="house_id" id="house_id" />
+					<input type="hidden"  name="action" id="action" />
 					<input type="text" name="house_name" id="house_name" onkeyup="validation(this.id)" class="form-control" required>
 					
 					</div>
@@ -41,9 +43,9 @@
 				<div class="col-md-12 go-btn"><br><br>
 				<center><a href="index.php?file=house/list" class="hvr-sweep-to-top">Cancel</a>
 				<?php if($updateresult==''){?>
-				<a class="hvr-sweep-to-top" onclick="house('','Add')">Save</a>
+				<a class="hvr-sweep-to-top" onclick="house()">Save</a>
 				<?php }else{?>
-				<a class="hvr-sweep-to-top" onclick="house('<?php echo $updateresult[0]['house_id'];?>','Update')">Update</a>
+				<a class="hvr-sweep-to-top" onclick="house()">Update</a>
 				<?php }?></center>
 				</div>
 			</form>
@@ -56,11 +58,22 @@
 </section>
 <?php if($updateresult!=''){?>
 <script>
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("house_id").value ="<?php echo $updateresult[0]['house_id'];?>";
+
 document.getElementById("house_name").value ="<?php echo $updateresult[0]['house_name'];?>";
 document.getElementById("description").value ="<?php echo $updateresult[0]['description'];?>";
 document.getElementById("status").value ="<?php echo $updateresult[0]['status'];?>";
 </script>
-<?php } ?>
+<?php } 
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php
+}
+?>
 
 <style>
 textarea#description {

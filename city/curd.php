@@ -6,7 +6,7 @@ require_once('../inc/dbConnect.php');
 
 if($_POST['action']=="Add")
 { 
-    $select_city=$pdo_conn->prepare("SELECT * FROM city WHERE state_id='".$_POST['state_id']."' country_id='".$_POST['country_id']."' AND district_id LIKE '".$_POST['district_id']."' AND city_name LIKE '".$_POST['city_name']."' ");
+    $select_city=$pdo_conn->prepare("SELECT * FROM city WHERE state_id='".$_POST['state_id']."' AND country_id='".$_POST['country_id']."' AND district_id LIKE '".$_POST['district_id']."' AND city_name LIKE '".$_POST['city_name']."' ");
     $select_city->execute();
     $city = $select_city->fetchAll();
 	if(count($city)==0)
@@ -18,7 +18,7 @@ if($_POST['action']=="Add")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	
 	if (!empty($result) ){
@@ -39,7 +39,7 @@ if($_POST['action']=="Update")
 	}
 	else
 	{
-		echo "error";
+		echo "Already Exit";
 	}
 	if(!empty($result)) {
 		echo $msg = "Successfully Updated";
@@ -53,8 +53,10 @@ if($_POST['action']=="Update")
 if($_POST['action']=="Delete")
 {
 	
-	$pdo_cityment="UPDATE city det delete_status='1' where city_id=".$_POST['city_id'];
-	$result=$pdo_conn->execute($pdo_cityment);
+	$pdo_cityment="UPDATE city set delete_status='1' where city_id=".$_POST['city_id'];
+	$city_exec=$pdo_conn->prepare($pdo_cityment);
+	$result = $city_exec->execute();
+	//$result=$pdo_conn->execute($pdo_cityment);
 	if(!empty($result)) {
 		echo $msg = "Successfully Deleted";
 	}
@@ -64,3 +66,5 @@ if($_POST['action']=="Delete")
 
 
  ?>
+ 
+ 

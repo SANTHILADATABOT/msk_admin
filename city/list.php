@@ -1,5 +1,5 @@
 
-
+<script language="javascript" type="text/javascript" src="city/city.js"></script>
 
 
 <section class="content-header report-pg" style="background-repeat: no-repeat;background-position: center;background-size: cover;background-image: url(images/top_bg.png);padding: 4px 30px;">
@@ -51,7 +51,7 @@
 								   <td> 
 		<!--						  <a href="index.php?file=state/view&state_id=<?php echo $value['state_id']?>" title="Edit"><i class="fa fa-eye" aria-hidden="true"></i></a>  
 		-->						  <a href="index.php?file=city/update&city_id=<?php echo $value['city_id']?>" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>  	
-								  <a href="#" onclick="del(<?php echo $value['city_id']?>)" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+								  <a href="#" onclick="city_del(<?php echo $value['city_id']?>)" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
 								  
 								  </td>
 								</tr>

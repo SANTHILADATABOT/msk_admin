@@ -97,7 +97,7 @@ button.btn.btn-sign.btn-block.margin-top-10.hvr-sweep-to-top {
 						<div class="p-20 log-top content-bottom">
 							<div class="content-top-agile">
 								
-								<p class="text-fade">Weclome to Masjidh Sevai Kuzhu</p>
+								<p class="text-fade">Welcome to Masjidh Sevai Kuzhu</p>
 				
 							</div>
 							<form  method="post" id="login_form">

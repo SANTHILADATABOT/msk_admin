@@ -1,7 +1,16 @@
 /****************************** INSERT & UPDATE ***************************************/
-function language_cu(language_id,action)
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        //alert();
+		language_cu();
+		
+   }
+});
+
+function language_cu()
 { 
-	format=$("form").serialize()+"&language_id="+language_id+"&action="+action;
+    event.preventDefault();
+	format=$("form").serialize();
 	var language_name=$("#language_name").val();
 	if(language_name)
 	{
@@ -20,7 +29,18 @@ function language_cu(language_id,action)
 					else
 					{
 						alert(msg);
-						window.location.href="index.php?file=language/list";
+						if(msg=='Successfully Created '){
+							window.location.href="index.php?file=language/list";
+							
+						}
+						else if(msg=='Successfully Updated '){
+							//alert("kguuy");
+							window.location.href="index.php?file=language/list";
+							
+						}
+						else{
+						return false
+						}
 					}
 			
 			}});

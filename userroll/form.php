@@ -10,6 +10,8 @@
 					<div class="form-group">
 					<h5>Roll Name  </h5>
 					<div class="controls">
+					<input type="hidden"  name="userroll_id" id="userroll_id" />
+					<input type="hidden"  name="action" id="action" />
 					<input type="text" name="roll_name" id="roll_name" onkeyup="validation(this.id)" class="form-control" required>
 					<div id="roll_name_error"></div>
 					</div>
@@ -28,9 +30,9 @@
 				<div class="col-md-12 go-btn"><br><br>
 				<center><a href="index.php?file=userroll/list" class="hvr-sweep-to-top">Cancel</a>
 				<?php if($updateresult==''){?>
-				<a class="hvr-sweep-to-top" onclick="userrole_cu('','Add')">Save</a>
+				<a class="hvr-sweep-to-top" onclick="userrole_cu()">Save</a>
 				<?php }else{?>
-				<a class="hvr-sweep-to-top" onclick="userrole_cu('<?php echo $updateresult[0]['userroll_id'];?>','Update')">Update</a>
+				<a class="hvr-sweep-to-top" onclick="userrole_cu()">Update</a>
 				<?php }?></center>
 			</form>
 		</div>
@@ -42,9 +44,20 @@
 </section>
 <?php if($updateresult!=''){?>
 <script>
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("userroll_id").value ="<?php echo $updateresult[0]['userroll_id'];?>";
+
 document.getElementById("roll_name").value ="<?php echo $updateresult[0]['roll_name'];?>";
 document.getElementById("active_status").value ="<?php echo $updateresult[0]['active_status'];?>";
 </script>
-<?php } ?>
+<?php } 
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php
+}
+?>
 
 

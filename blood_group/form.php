@@ -13,6 +13,8 @@
 					<div class="form-group">
 					<h5>Blood Group Name  </h5>
 					<div class="controls">
+						<input type="hidden"  name="blood_id" id="blood_id" />
+						<input type="hidden"  name="action" id="action" />
 					<input type="text" name="blood_group_name" id="blood_group_name" onkeyup="validation(this.id)" class="form-control" required>
 					
 					</div>
@@ -41,9 +43,9 @@
 				<div class="col-md-12 go-btn"><br><br>
 				<center><a href="index.php?file=blood_group/list" class="hvr-sweep-to-top">Cancel</a>
 				<?php if($updateresult==''){?>
-				<a class="hvr-sweep-to-top" onclick="blood_group('','Add')">Save</a>
+				<a class="hvr-sweep-to-top" onclick="blood_group()">Save</a>
 				<?php }else{?> 
-				<a class="hvr-sweep-to-top" onclick="blood_group('<?php echo $updateresult[0]['blood_id'];?>','Update')">Update</a>
+				<a class="hvr-sweep-to-top" onclick="blood_group()">Update</a>
 				<?php }?> </center>
 				</div>
 			</form>
@@ -56,9 +58,16 @@
 </section>
 <?php if($updateresult!=''){?>
 <script>
+	document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("blood_id").value ="<?php echo $updateresult[0]['blood_id'];?>";
 document.getElementById("blood_group_name").value ="<?php echo $updateresult[0]['blood_group_name'];?>";
 document.getElementById("description").value ="<?php echo $updateresult[0]['description'];?>";
 document.getElementById("status").value ="<?php echo $updateresult[0]['status'];?>";
+</script>
+<?php } else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
 </script>
 <?php } ?>
 

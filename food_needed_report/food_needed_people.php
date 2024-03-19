@@ -30,7 +30,7 @@ $record = $survey->fetch();
                 <tr>
                     <td width="10px"></td>
                     <th style="border: 1px solid black;border-collapse: collapse;">S.No</th>
-                    <td style="border: 1px solid black;border-collapse: collapse;text-align:center"><?php echo $record['food_needed_id'] ?></td>
+                    <td style="border: 1px solid black;border-collapse: collapse;text-align:center"><?php echo $record['s_no'] ?></td>
                     <td width="10px"></td>
                     <td width="10px"></td>
                 </tr>
@@ -102,7 +102,7 @@ $record = $survey->fetch();
     </tr>
     <tr>
         <td width="10px"></td>
-        <td><b>Food dose not needed to be guided by labour :</b> <?php echo $record['food_does_not_needed'] ?></td>
+        <td><b>Food does not needed to be guided by labour :</b> <?php echo $record['food_does_not_needed'] ?></td>
         <td width="10px"></td>
     </tr>
     <tr>
@@ -124,12 +124,12 @@ $record = $survey->fetch();
 <table style="border: 1px solid black;">
     <tr>
         <td width="10px"></td>
-        <td><b>Thanavanthar Name :</b> <?php echo $record['thanavanthar_name'] ?></td>
+        <td><b>Sponsor Name :</b> <?php echo $record['thanavanthar_name'] ?></td>
         <td width="10px"></td>
     </tr>
     <tr>
         <td width="10px"></td>
-        <td><b>Mobile Number:</b> <?php echo $record['mobile_no'] ?></td>
+        <td><b>Mobile Number:</b> <?php echo $record['mobile_number'] ?></td>
         <td width="10px"></td>
     </tr>
     <tr>

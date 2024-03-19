@@ -168,6 +168,15 @@
             </li>
           </ul>
         </li>  -->       
+            <li >
+          <a href="index.php?file=helpers_report/list">
+           <i class="fa fa-file-code-o icon-1" aria-hidden="true"></i>
+            <span>Helpers Report</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right" ></i>
+            </span>
+          </a>
+        </li>
       </ul>
     </section>
   </aside> 

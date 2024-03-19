@@ -94,6 +94,8 @@
 							  <div class="form-group">
 								   <h5>City Name </h5>
 								   <div class="controls">
+								        <input type="hidden"  name="city_id" id="city_id" />
+										<input type="hidden"  name="action" id="action" />
 										<input type="text" class="form-control" name="city_name" id="city_name"  required>
 									</div>
 							  </div>
@@ -115,9 +117,9 @@
 						<div class="col-md-12 go-btn"><br><br>
 							<center><a href="index.php?file=district/list" class="hvr-sweep-to-top">Cancel</a>
 							<?php if($updateresult==''){?>
-							<a class="hvr-sweep-to-top" onclick="city_cu('','Add')">Save</a>
+							<a class="hvr-sweep-to-top" onclick="city_cu()">Save</a>
 							<?php }else{?>
-							<a class="hvr-sweep-to-top" onclick="city_cu('<?php echo $updateresult[0]['city_id']?>','Update')">Update</a>
+							<a class="hvr-sweep-to-top" onclick="city_cu()">Update</a>
 							<?php }?></center>
 						</div>
 
@@ -142,7 +144,8 @@
 
 <script>
 
-
+document.getElementById("action").value ="<?php echo "Update";?>";
+document.getElementById("city_id").value ="<?php echo $updateresult[0]['city_id'];?>";
 
 document.getElementById("country_id").value ="<?php echo $updateresult[0]['country_id'];?>";
 
@@ -155,4 +158,10 @@ document.getElementById("status").value ="<?php echo $updateresult[0]['status'];
 
 
 </script>
-<?php }?>
+<?php }
+else{
+?>
+<script>
+document.getElementById("action").value ="<?php echo "Add";?>";	
+</script>
+<?php } ?>
